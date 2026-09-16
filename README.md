@@ -5,12 +5,6 @@ products, using the post's native featured image (or the product's main
 image) and excerpt, so Facebook and other platforms use them as the share
 preview.
 
-Complementary to `wp-external-featured-image`, which only handles posts
-using an *external* image as a stand-in for a featured image and explicitly
-skips posts that already have a native `_thumbnail_id` set. This plugin
-covers that native-featured-image case (and WooCommerce products), so the
-two can run side by side without conflicting.
-
 ## What it does
 
 On any singular post, page, or WooCommerce product with a featured/main
