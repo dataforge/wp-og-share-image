@@ -27,34 +27,6 @@ image set, outputs in `wp_head`:
 
 Self-updates from GitHub Releases on this repo — no WordPress.org listing.
 Sites running this plugin poll `releases/latest` via the `Update URI`
-header and the updater in `includes/class-ogsi-updater.php`.
-
-### How to ship a code change (Flow A — automated)
-
-1. Edit the code.
-2. Bump `Version:` in the `wp-og-share-image.php` header — this is the
-   **only** version source; the updater and the release workflow both read
-   it. The release workflow will hard-fail if the tag doesn't match this.
-3. Lint changed PHP: `php -l <file>` for each file touched.
-4. Commit and push to `master`. Pushing alone does **not** release
-   anything — only a tag does.
-5. Tag and push the tag:
-   ```
-   git tag vX.Y.Z
-   git push origin vX.Y.Z
-   ```
-6. GitHub Actions (`.github/workflows/release.yml`) builds the zip with
-   `build_plugin.py` and publishes a GitHub Release with it attached —
-   usually done in under a minute. Watch it with:
-   ```
-   gh run watch --repo dataforge/wp-og-share-image
-   ```
-7. Sites pick up the new version within `OGSI_Updater::CACHE_TTL` (12h), or
-   immediately via **Plugins → wp-og-share-image → Check for Updates**
-   (added automatically as a plugin action link) or **Dashboard → Updates
-   → Check Again**.
-
-Never edit and commit directly from inside a site's Docker container — those
-containers have no `gh`/Python and can't create releases; always edit
-locally (or wherever this repo is cloned with push access) and let CI build
-the zip.
+header and the updater in `includes/class-ogsi-updater.php`. Pushing a
+`vX.Y.Z` tag (`.github/workflows/release.yml`) builds and publishes a new
+release automatically.
